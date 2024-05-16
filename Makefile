@@ -28,7 +28,7 @@ lxplus: all
 
 clean:
 	@-rm $(EXECUTABLES)
-	@rm -f $(SRCDIR)/*.o $(ANADIR)/*.o
+	@rm -f $(INCLUDEDIR)/*.o $(SRCDIR)/*.o $(ANADIR)/*.o
 
 copy_runners:
 		@for d in $(subst Run,,$(notdir $(basename $(RUNNERSCC)))); do ( if [ ! -f "src/Run"$$d".cc" ]; then echo $$d" file does not exists, copying"; $(HELPERSCRIPT) $$d; fi ) ; done
