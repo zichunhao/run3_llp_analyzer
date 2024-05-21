@@ -3,6 +3,7 @@ MergeNtuples
 NormalizeNtuple
 SkimNtuple
 bin/
+condor_jobs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
