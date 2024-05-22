@@ -1,3 +1,8 @@
+if [ -z $CMSSW_BASE ]; then
+    echo "CMSSW_BASE is not set. Exiting.";
+    exit 1;
+fi
+
 set -xe;
 
 PATH_ANALYZER="${CMSSW_BASE}/src/run3_llp_analyzer"
