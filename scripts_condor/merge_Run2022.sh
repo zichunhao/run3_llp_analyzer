@@ -13,7 +13,6 @@ PATH_EXE="${DIR_ANALYZER}/MergeNtuples"
 N_NTUPLER=50;
 N_NANOAOD=20;
 MEMORY=2048;
-SINGULARITY_IMAGE="EL8";
 
 for era in "E" "F" "G"; do
     path_ntupler="${DIR_ANALYZER}/lists/displacedJetMuonNtuple/V1p19/Data2022/DisplacedJet-EXOCSCCluster_Run2022${era}-PromptReco-v1.txt"
