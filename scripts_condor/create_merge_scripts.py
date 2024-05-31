@@ -14,7 +14,7 @@ ANALYZER_DIR = Path(CMSSW_BASE).resolve() / "src/run3_llp_analyzer"
 PATH_CONVERT_LIST = ANALYZER_DIR / "scripts/convertListMerge.py"
 
 
-def batch_file_list(n: int, file_dir: Path) -> List[List[str]]:
+def batch_file_list(n: int, file_dir: Path, replace_eos: bool = True) -> List[List[str]]:
     """Split a txt file that contains many ntupler/NanoAOD file paths,
     one per line, into n groups.
     Note that some elements in the end might be empty.
@@ -54,6 +54,9 @@ def batch_file_list(n: int, file_dir: Path) -> List[List[str]]:
         if len(batch) == 0:
             break
         else:
+            if replace_eos:
+                batch = map(lambda p: p.replace("/eos/uscms/", "root://cmseos.fnal.gov//"), batch)
+                batch = list(batch)
             final_batch_list.append(batch)
 
     return final_batch_list
@@ -140,8 +143,8 @@ if __name__ == "__main__":
     dir_scripts = Path(args.scripts)
     dir_scripts.mkdir(parents=True, exist_ok=True)
 
-    batch_ntupler = batch_file_list(n_ntupler, path_ntupler)
-    batch_NanoAOD = batch_file_list(n_NanoAOD, path_NanoAOD)
+    batch_ntupler = batch_file_list(n_ntupler, path_ntupler, replace_eos=True)
+    batch_NanoAOD = batch_file_list(n_NanoAOD, path_NanoAOD, replace_eos=True)
     # update to the true number of batches
     n_ntupler = len(batch_ntupler)
     n_NanoAOD = len(batch_NanoAOD)
