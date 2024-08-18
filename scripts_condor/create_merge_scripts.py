@@ -170,7 +170,7 @@ if __name__ == "__main__":
     path_exe = Path(args.exe).resolve()  # absolute path
 
     script_sh = f"""
-#!/bin/bash
+#!/bin/bash -xe
 date
 MAINDIR=`pwd`
 ls
@@ -214,6 +214,7 @@ echo "remove output local file"
 rm -rf *.root
 ls
 date
+touch done.txt
 """
     script_sh = script_sh.strip()
     path_sh = dir_scripts / "runjob.sh"
@@ -239,6 +240,7 @@ Executable = runjob.sh
 Should_Transfer_Files = YES
 WhenToTransferOutput = ON_EXIT_OR_EVICT
 Transfer_Input_Files = runjob.sh,{path_exe},{PATH_CONVERT_LIST},{",".join(paths_batch_ntupler)},{",".join(paths_batch_NanoAOD)}
+Transfer_Output_Files = done.txt
 +JobQueue = "Normal"
 RequestCpus = 1
 RequestDisk = 4
@@ -261,7 +263,7 @@ Queue $(N)
     script_jdl = script_jdl.strip()    
     with open(dir_scripts / "runjob.jdl", "w") as f:
         f.write(script_jdl)
-    
+
     logging.info(
         f"Job scripts produced at {dir_scripts} with {n_ntupler} ntupler batches and {n_NanoAOD} NanoAOD batches"
     )
